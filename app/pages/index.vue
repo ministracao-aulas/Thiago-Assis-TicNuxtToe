@@ -69,7 +69,7 @@
                         :data-square-index="squareIndex"
                         :disabled="haveAwinner"
                     >
-                        <span class="text-xs">{{ squareIndex }}</span>
+                        <span v-show="false" class="text-xs">{{ squareIndex }}</span>
                         <span>{{ square?.content }}</span>
                     </button>
                 </div>
