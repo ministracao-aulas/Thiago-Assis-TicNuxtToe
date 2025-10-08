@@ -1,9 +1,20 @@
-<style scoped>
-.emoji-cursor-1 {
-    cursor:
+<style>
+:root {
+    --cursor-0: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🔥</text></svg>';
+    --cursor-1: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🔥</text></svg>';
+    --custom-cursor:
         url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🔥</text></svg>')
             16 16,
         auto;
+}
+
+.cursor-emoji-1 {
+    /* cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🔥</text></svg>') 16 16, auto; */
+    cursor: var(--custom-cursor, unset) !important;
+}
+
+.custom-cursor-emoji-1 {
+    cursor: var(--custom-cursor, unset) !important;
 }
 </style>
 
@@ -49,8 +60,7 @@
                 <div
                     class="grid grid-cols-3 gap-2"
                     :class="{
-                        'emoji-cursor': !haveAwinner,
-                        'cursor-not-allowed': haveAwinner,
+                        // 'cursor-not-allowed': haveAwinner,
                     }"
                 >
                     <button
@@ -58,11 +68,15 @@
                         :key="square"
                         class="aspect-square rounded-xl text-3xl font-bold flex items-center justify-center transition"
                         :class="{
-                            'cursor-pointer': !haveAwinner && square?.available,
-                            'cursor-not-allowed': !square?.available || haveAwinner,
+                            // 'cursor-emoji-1': !haveAwinner && square?.available && !square?.content,
+                            // 'cursor-pointer': !haveAwinner && square?.available,
+                            // 'cursor-not-allowed': !square?.available || haveAwinner,
                             'bg-gray-700 hover:bg-gray-600': !isDraw && !winnerCombination.includes(squareIndex),
                             'text-gray-700 bg-gray-200': !isDraw && winnerCombination.includes(squareIndex),
                             'text-gray-700 bg-orange-500': isDraw,
+                        }"
+                        :style="{
+                            cursor: !haveAwinner && square?.available && !square?.content ? customCursor : 'unset',
                         }"
                         type="button"
                         @click.stop.prevent="whenClickOnSquare(square)"
@@ -287,4 +301,14 @@ const resetGame = () => {
         return i;
     });
 };
+
+const customCursor = computed(() => {
+    if (haveAwinner.value || isDraw.value) {
+        return 'unset';
+    }
+
+    // return `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32"><text y="24" font-size="24">🔥</text></svg>') 16 16, auto`;
+
+    return `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40"><text y="30" font-size="30">${turnIcon.value}</text></svg>') 16 16, auto`;
+});
 </script>
