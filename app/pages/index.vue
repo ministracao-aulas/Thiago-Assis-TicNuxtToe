@@ -12,7 +12,7 @@
         class="min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-900 to-gray-800 text-white px-4"
     >
         <!-- Título -->
-        <h1 class="text-6xl font-bold mb-10">Tic-Tac-Toe</h1>
+        <h1 class="text-6xl font-bold mb-10">TicTacToe</h1>
 
         <div class="w-80 mb-4">
             <code class="w-full">
